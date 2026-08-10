@@ -26,12 +26,11 @@
     #work .bento { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
     #work .bento > div { grid-column: auto !important; grid-row: auto !important; height: auto !important; aspect-ratio: 4/5; }
 
-    #about.about-section { height: auto !important; min-height: 0 !important; flex-direction: column; align-items: stretch; }
-    #about .about-photo { position: relative !important; inset: auto !important; height: 42vh !important; min-height: 300px; }
-    #about .about-gradient { background: linear-gradient(to top, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 45%) !important; }
-    #about .about-text { padding: 28px clamp(20px, 5vw, 40px) 40px !important; }
-    #about .about-label { color: oklch(50% 0.05 350) !important; }
-    #about .about-heading, #about .about-body { color: oklch(30% 0.045 40) !important; text-shadow: none !important; max-width: none !important; }
+    #about.about-section { height: 86vh !important; min-height: 620px !important; align-items: flex-end !important; }
+    #about .about-photo img { object-position: 62% 15% !important; }
+    #about .about-gradient { background: linear-gradient(to top, oklch(20% 0.03 40 / 0.88), oklch(20% 0.03 40 / 0.35) 42%, oklch(20% 0.03 40 / 0) 68%) !important; }
+    #about .about-text { padding: 0 clamp(20px, 5vw, 40px) 40px !important; }
+    #about .about-heading, #about .about-body { max-width: none !important; }
   }
 </style>
 </head>
@@ -61,7 +60,7 @@
 <main id="top" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px);">
 
   <section style="position: relative; height: 92vh; min-height: 560px; width: 100vw; margin-left: calc(50% - 50vw); display: flex; align-items: flex-end; overflow: hidden;">
-    <img src="assets/hero-fullpage.jpg" alt="Альбина Хисамова" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 88% 35%; z-index: 0;">
+    <img src="assets/hero-final.jpg" alt="Альбина Хисамова" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;">
     <div style="position: absolute; inset: 0; background: linear-gradient(to top, oklch(20% 0.03 40 / 0.75), oklch(20% 0.03 40 / 0.05) 55%); z-index: 1;"></div>
     <div style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 55%); z-index: 1;"></div>
     <div style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px) clamp(48px, 7vw, 80px); max-width: 1200px; margin: 0 auto; width: 100%;">
@@ -81,7 +80,7 @@
       <div class="about-gradient" style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(30% 0.045 40 / 0.6), oklch(30% 0.045 40 / 0.32) 30%, oklch(30% 0.045 40 / 0) 50%);"></div>
     </div>
     <div class="about-text" style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px); max-width: 1200px; margin: 0 auto; width: 100%;">
-      <p class="about-label" style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(85% 0.05 350); margin: 0 0 20px;">Обо мне</p>
+      <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(85% 0.05 350); margin: 0 0 20px;">Обо мне</p>
       <h2 class="about-heading" style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.18; margin: 0 0 28px; max-width: 460px; color: oklch(98% 0.008 75); text-shadow: 0 2px 16px oklch(20% 0.03 40 / 0.35);">Макияж — это про ваши черты, а не про чужой шаблон</h2>
       <p class="about-body" style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0 0 16px; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">Работаю с невестами, на съёмках и для личных мероприятий. Подбираю технику индивидуально — под тип кожи, черты лица и повод.</p>
       <p class="about-body" style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">11 лет преподаю визаж</p>
