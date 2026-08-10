@@ -22,9 +22,16 @@
     .mobile-menu { display: none !important; }
   }
   @media (max-width: 759px) {
-    .hero-inner, #services .grid3, #course .grid2 { grid-template-columns: 1fr !important; }
+    #services .grid3, #course .grid2 { grid-template-columns: 1fr !important; }
     #work .bento { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
-    #work .bento > div { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 4/5; }
+    #work .bento > div { grid-column: auto !important; grid-row: auto !important; height: auto !important; aspect-ratio: 4/5; }
+
+    #about.about-section { height: auto !important; min-height: 0 !important; flex-direction: column; align-items: stretch; }
+    #about .about-photo { position: relative !important; inset: auto !important; height: 42vh !important; min-height: 300px; }
+    #about .about-gradient { background: linear-gradient(to top, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 45%) !important; }
+    #about .about-text { padding: 28px clamp(20px, 5vw, 40px) 40px !important; }
+    #about .about-label { color: oklch(50% 0.05 350) !important; }
+    #about .about-heading, #about .about-body { color: oklch(30% 0.045 40) !important; text-shadow: none !important; max-width: none !important; }
   }
 </style>
 </head>
@@ -54,8 +61,9 @@
 <main id="top" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px);">
 
   <section style="position: relative; height: 92vh; min-height: 560px; width: 100vw; margin-left: calc(50% - 50vw); display: flex; align-items: flex-end;">
-    <img src="assets/hero-fullpage.jpg" alt="Альбина Хисамова" style="position: absolute; top: -8%; left: -6%; width: 140%; height: 116%; object-fit: cover; object-position: 100% 25%; z-index: 0;">
+    <img src="assets/hero-fullpage.jpg" alt="Альбина Хисамова" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 88% 25%; z-index: 0;">
     <div style="position: absolute; inset: 0; background: linear-gradient(to top, oklch(20% 0.03 40 / 0.75), oklch(20% 0.03 40 / 0.05) 55%); z-index: 1;"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 55%); z-index: 1;"></div>
     <div style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px) clamp(48px, 7vw, 80px); max-width: 1200px; margin: 0 auto; width: 100%;">
       <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(88% 0.03 350); margin: 0 0 18px;">ВИЗАЖИСТ И ПРЕПОДАВАТЕЛЬ · КАЗАНЬ</p>
       <h1 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(44px, 7vw, 80px); line-height: 1.05; margin: 0 0 20px; color: oklch(98% 0.008 75);">Альбина Хисамова</h1>
@@ -67,14 +75,16 @@
     </div>
   </section>
 
-  <section id="about" style="position: relative; height: calc(78vh - 38px); min-height: 500px; width: 100vw; margin-left: calc(50% - 50vw); display: flex; align-items: center; overflow: hidden;">
-    <img src="assets/color-brush-application.jpg" alt="Альбина за работой" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 130% 20%; z-index: 0;">
-    <div style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(30% 0.045 40 / 0.6), oklch(30% 0.045 40 / 0.32) 30%, oklch(30% 0.045 40 / 0) 50%); z-index: 1;"></div>
-    <div style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px); max-width: 1200px; margin: 0 auto; width: 100%;">
-      <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(85% 0.05 350); margin: 0 0 20px;">Обо мне</p>
-      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.18; margin: 0 0 28px; max-width: 460px; color: oklch(98% 0.008 75); text-shadow: 0 2px 16px oklch(20% 0.03 40 / 0.35);">Макияж — это про ваши черты, а не про чужой шаблон</h2>
-      <p style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0 0 16px; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">Работаю с невестами, на съёмках и для личных мероприятий. Подбираю технику индивидуально — под тип кожи, черты лица и повод.</p>
-      <p style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">11 лет преподаю визаж</p>
+  <section id="about" class="about-section" style="position: relative; height: calc(78vh - 38px); min-height: 500px; width: 100vw; margin-left: calc(50% - 50vw); display: flex; align-items: center; overflow: hidden;">
+    <div class="about-photo" style="position: absolute; inset: 0; z-index: 0;">
+      <img src="assets/color-brush-application.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 130% 20%; display: block;">
+      <div class="about-gradient" style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(30% 0.045 40 / 0.6), oklch(30% 0.045 40 / 0.32) 30%, oklch(30% 0.045 40 / 0) 50%);"></div>
+    </div>
+    <div class="about-text" style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px); max-width: 1200px; margin: 0 auto; width: 100%;">
+      <p class="about-label" style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(85% 0.05 350); margin: 0 0 20px;">Обо мне</p>
+      <h2 class="about-heading" style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(28px, 3.6vw, 42px); line-height: 1.18; margin: 0 0 28px; max-width: 460px; color: oklch(98% 0.008 75); text-shadow: 0 2px 16px oklch(20% 0.03 40 / 0.35);">Макияж — это про ваши черты, а не про чужой шаблон</h2>
+      <p class="about-body" style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0 0 16px; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">Работаю с невестами, на съёмках и для личных мероприятий. Подбираю технику индивидуально — под тип кожи, черты лица и повод.</p>
+      <p class="about-body" style="font-size: 17px; line-height: 1.75; color: oklch(92% 0.015 75); margin: 0; max-width: 400px; text-shadow: 0 1px 10px oklch(20% 0.03 40 / 0.3);">11 лет преподаю визаж</p>
     </div>
   </section>
 
@@ -99,7 +109,7 @@
       </div>
       <div style="border-top: 1px solid oklch(78% 0.03 350); padding-top: 24px;">
         <p style="font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; margin: 0 0 12px;">Сам себе визажист</p>
-        <p style="font-size: 15px; line-height: 1.6; color: oklch(38% 0.04 40); margin: 0 0 16px;">Курс по самостоятельному макияжу — техники и продукты под ваши черты лица.</p>
+        <p style="font-size: 15px; line-height: 1.6; color: oklch(38% 0.04 40); margin: 0 0 16px;">Научитесь делать макияж самостоятельно: подбор косметики и техники под ваши черты лица.</p>
         <p style="font-size: 13px; letter-spacing: 0.06em; color: oklch(58% 0.04 350); margin: 0;">Обучение</p>
       </div>
       <div style="border-top: 1px solid oklch(78% 0.03 350); padding-top: 24px;">
@@ -150,13 +160,22 @@
     <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(28px, 3.5vw, 40px); margin: 0 0 40px;">Немного из портфолио</h2>
     <div class="bento" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 280px); gap: 16px;">
       <div style="grid-column: 1 / 3; grid-row: 1 / 3; overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-bridal.jpg" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <img src="assets/work-vintage-waves.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 25%;">
       </div>
       <div style="overflow: hidden; border-radius: 2px;">
         <img src="assets/work-glam-eyes.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div style="overflow: hidden; border-radius: 2px;">
         <img src="assets/work-red-lips.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+      </div>
+      <div style="height: 280px; overflow: hidden; border-radius: 2px;">
+        <img src="assets/work-navy-vest.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 60% 8%; transform: scale(2.5) translateX(20px) translateY(-10px); transform-origin: 60% 4%;">
+      </div>
+      <div style="height: 280px; overflow: hidden; border-radius: 2px;">
+        <img src="assets/work-bridal-side.jpg" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
+      </div>
+      <div style="height: 280px; overflow: hidden; border-radius: 2px;">
+        <img src="assets/work-bridal-lounge.jpg" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
       </div>
     </div>
   </section>
