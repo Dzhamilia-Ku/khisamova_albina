@@ -47,9 +47,9 @@
       <source media="(max-width: 759px)" srcset="assets/hero-mobile.jpg">
       <img src="assets/color-brush-application.jpg" alt="Альбина Хисамова" style="width: 100%; height: 100%; object-fit: cover; object-position: center 27%; display: block;">
     </picture>
-    <div data-hero-gradient-1="1" style="position: absolute; inset: 0; background: linear-gradient(to top, oklch(20% 0.03 40 / 0.75), oklch(20% 0.03 40 / 0.05) 55%); z-index: 1;"></div>
-    <div data-hero-gradient-2="1" style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 55%); z-index: 1;"></div>
-    <div data-hero-text="1" style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px) clamp(48px, 7vw, 80px); max-width: 1200px; margin: 0 auto; width: 100%;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, oklch(20% 0.03 40 / 0.75), oklch(20% 0.03 40 / 0.05) 55%); z-index: 1;"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 55%); z-index: 1;"></div>
+    <div style="position: relative; z-index: 2; padding: 0 clamp(20px, 5vw, 40px) clamp(48px, 7vw, 80px); max-width: 1200px; margin: 0 auto; width: 100%;">
       <p style="display: inline-block; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(30% 0.045 40); background: oklch(98% 0.008 75); padding: 6px 14px; border-radius: 999px; margin: 0 0 20px;">ВИЗАЖИСТ И ПРЕПОДАВАТЕЛЬ · КАЗАНЬ</p>
       <h1 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(44px, 7vw, 80px); line-height: 1.05; margin: 0 0 20px; color: oklch(98% 0.008 75);">Альбина Хисамова</h1>
       <p style="font-size: 18px; line-height: 1.6; color: oklch(94% 0.01 75); margin: 0 0 32px; max-width: 420px;">Макияж для свадеб, съёмок и особых вечеров — деликатно, аккуратно и по вашим чертам лица.<br>Индивидуальные уроки по макияжу</p>
@@ -195,11 +195,8 @@
   }
   @media (max-width: 759px) {
     [data-mobile-btn="1"] { display: block !important; }
-    [data-hero="1"] { height: auto !important; min-height: 0 !important; flex-direction: column !important; align-items: stretch !important; }
-    [data-hero-picture="1"] { position: relative !important; inset: auto !important; aspect-ratio: 0.8; }
+    [data-hero="1"] { height: auto !important; min-height: 0 !important; aspect-ratio: 0.8; }
     [data-hero-picture="1"] img { object-position: 78% top !important; }
-    [data-hero-gradient-2="1"] { display: none !important; }
-    [data-hero-text="1"] { padding: 32px 20px 40px !important; background: oklch(20% 0.03 40) !important; }
 
     [data-about="1"] { height: auto !important; }
     [data-about-grid="1"] { grid-template-columns: 1fr !important; }
