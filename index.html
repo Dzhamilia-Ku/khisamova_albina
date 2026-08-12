@@ -219,56 +219,71 @@
     #work > div > div { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 4/5; }
   }
 
-  #bookingModal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+  #bookingModal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 16px; }
   #bookingModal.open { display: flex; }
   #bookingModalOverlay { position: absolute; inset: 0; background: oklch(20% 0.03 40 / 0.6); }
-  .booking-card { position: relative; background: oklch(96.5% 0.012 75); max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; border-radius: 2px; padding: clamp(28px, 4vw, 44px); }
-  .booking-field { margin-bottom: 16px; }
-  .booking-field label { display: block; font-size: 13px; margin-bottom: 6px; color: oklch(45% 0.03 60); }
-  .booking-field input, .booking-field select, .booking-field textarea { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid oklch(80% 0.02 70); border-radius: 2px; background: oklch(98% 0.008 75); font-size: 15px; font-family: 'Manrope', sans-serif; color: oklch(30% 0.045 40); }
+  .booking-card { position: relative; background: oklch(96.5% 0.012 75); max-width: 560px; width: 100%; max-height: 94vh; overflow-y: auto; border-radius: 2px; padding: clamp(20px, 3vw, 32px); }
+  .booking-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .booking-field { margin-bottom: 10px; }
+  .booking-field label { display: block; font-size: 12px; margin-bottom: 3px; color: oklch(45% 0.03 60); }
+  .booking-field input, .booking-field select, .booking-field textarea { width: 100%; box-sizing: border-box; padding: 9px 11px; border: 1px solid oklch(80% 0.02 70); border-radius: 2px; background: oklch(98% 0.008 75); font-size: 14px; font-family: 'Manrope', sans-serif; color: oklch(30% 0.045 40); }
+  .booking-field input.invalid, .booking-field select.invalid { border-color: oklch(55% 0.15 30); }
   .booking-field textarea { resize: vertical; }
-  .booking-check { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: oklch(40% 0.03 60); cursor: pointer; margin-bottom: 12px; }
+  .booking-field-hint { font-size: 11px; color: oklch(60% 0.02 60); margin-top: 3px; }
+  .booking-field-error { display: none; font-size: 11px; color: oklch(50% 0.15 30); margin-top: 3px; }
+  .booking-check { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.4; color: oklch(40% 0.03 60); cursor: pointer; margin-bottom: 6px; }
   .booking-check input { margin-top: 2px; flex-shrink: 0; }
+  @media (max-width: 520px) {
+    .booking-row { grid-template-columns: 1fr; gap: 0; }
+  }
 </style>
 
 <div id="bookingModal" aria-hidden="true">
   <div id="bookingModalOverlay"></div>
   <div class="booking-card">
-    <button type="button" id="bookingModalClose" aria-label="Закрыть" style="position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; padding: 8px; color: oklch(30% 0.045 40);">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="6" y1="18" x2="18" y2="6"></line></svg>
+    <button type="button" id="bookingModalClose" aria-label="Закрыть" style="position: absolute; top: 12px; right: 12px; background: none; border: none; cursor: pointer; padding: 8px; color: oklch(30% 0.045 40);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="6" y1="18" x2="18" y2="6"></line></svg>
     </button>
 
     <div id="bookingFormWrap">
-      <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 12px;">Запись</p>
-      <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(26px, 3vw, 34px); margin: 0 0 24px;">Оставьте заявку</h2>
+      <p style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 6px;">Запись</p>
+      <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(22px, 2.6vw, 28px); margin: 0 0 14px;">Оставьте заявку</h2>
 
       <form id="bookingForm" novalidate>
-        <div class="booking-field">
-          <label for="bk-name">Имя *</label>
-          <input type="text" id="bk-name" name="name" required>
+        <div class="booking-row">
+          <div class="booking-field">
+            <label for="bk-name">Имя *</label>
+            <input type="text" id="bk-name" name="name" required>
+            <span class="booking-field-error" data-error-for="name">Заполните поле</span>
+          </div>
+          <div class="booking-field">
+            <label for="bk-phone">Номер телефона *</label>
+            <input type="tel" id="bk-phone" name="phone" required placeholder="+7 999 123-45-67">
+            <span class="booking-field-hint">Например: +7 999 123-45-67</span>
+            <span class="booking-field-error" data-error-for="phone">Заполните поле</span>
+          </div>
         </div>
-        <div class="booking-field">
-          <label for="bk-phone">Номер телефона *</label>
-          <input type="tel" id="bk-phone" name="phone" required>
+        <div class="booking-row">
+          <div class="booking-field">
+            <label for="bk-email">Email *</label>
+            <input type="email" id="bk-email" name="email" required>
+            <span class="booking-field-error" data-error-for="email">Заполните поле</span>
+          </div>
+          <div class="booking-field">
+            <label for="bk-service">Какой образ вам нужен?</label>
+            <select id="bk-service" name="service">
+              <option value="">Не выбрано</option>
+              <option>Свадебный макияж</option>
+              <option>Вечерний макияж</option>
+              <option>Съёмочный макияж</option>
+              <option>Курс «Сам себе визажист»</option>
+              <option>Другое</option>
+            </select>
+          </div>
         </div>
-        <div class="booking-field">
-          <label for="bk-email">Email *</label>
-          <input type="email" id="bk-email" name="email" required>
-        </div>
-        <div class="booking-field">
-          <label for="bk-service">Какой образ вам нужен?</label>
-          <select id="bk-service" name="service">
-            <option value="">Не выбрано</option>
-            <option>Свадебный макияж</option>
-            <option>Вечерний макияж</option>
-            <option>Съёмочный макияж</option>
-            <option>Курс «Сам себе визажист»</option>
-            <option>Другое</option>
-          </select>
-        </div>
-        <div class="booking-field" style="margin-bottom: 20px;">
+        <div class="booking-field" style="margin-bottom: 14px;">
           <label for="bk-comment">Дополнительно</label>
-          <textarea id="bk-comment" name="comment" rows="3"></textarea>
+          <textarea id="bk-comment" name="comment" rows="2"></textarea>
         </div>
 
         <label class="booking-check">
@@ -284,19 +299,19 @@
           <span>Я согласен(на) на получение рекламных сообщений о специальных предложениях, акциях и услугах (ст. 18 ФЗ «О рекламе»)</span>
         </label>
 
-        <p id="bookingConsentWarning" style="display: none; font-size: 13px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 12px 14px; margin: 4px 0 0;">
+        <p id="bookingConsentWarning" style="display: none; font-size: 12px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 10px 12px; margin: 4px 0 0;">
           Чтобы отправить заявку, необходимо дать все согласия. Я серьёзно отношусь к хранению персональных данных и исключаю любую утечку. И я сама не люблю спам, поэтому буду редко информировать только о самом интересном.
         </p>
-        <p id="bookingErrorMsg" style="display: none; font-size: 13px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 12px 14px; margin: 4px 0 0;">
+        <p id="bookingErrorMsg" style="display: none; font-size: 12px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 10px 12px; margin: 4px 0 0;">
           Не удалось отправить заявку. Пожалуйста, напишите нам напрямую в <a href="https://www.instagram.com/khisamova_albina/" target="_blank" style="color: oklch(45% 0.05 350);">Instagram</a>.
         </p>
 
-        <button type="submit" id="bookingSubmitBtn" style="width: 100%; margin-top: 20px; background: oklch(80% 0.025 65); color: oklch(25% 0.04 40); padding: 15px 28px; border: none; border-radius: 2px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;">Отправить</button>
+        <button type="submit" id="bookingSubmitBtn" style="width: 100%; margin-top: 14px; background: oklch(80% 0.025 65); color: oklch(25% 0.04 40); padding: 13px 28px; border: none; border-radius: 2px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;">Отправить</button>
       </form>
     </div>
 
-    <div id="bookingSuccess" style="display: none; text-align: center; padding: 40px 0;">
-      <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 28px; margin: 0;">Благодарю. Я свяжусь с Вами в ближайшее время</h2>
+    <div id="bookingSuccess" style="display: none; text-align: center; padding: 30px 0;">
+      <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: 26px; margin: 0;">Благодарю. Я свяжусь с Вами в ближайшее время</h2>
     </div>
   </div>
 </div>
@@ -333,6 +348,35 @@
     if (e.key === 'Escape') closeModal();
   });
 
+  var requiredFields = ['name', 'phone', 'email'];
+  requiredFields.forEach(function (fieldName) {
+    var input = form.elements[fieldName];
+    input.addEventListener('input', function () {
+      if (input.checkValidity()) {
+        input.classList.remove('invalid');
+        var err = form.querySelector('[data-error-for="' + fieldName + '"]');
+        if (err) err.style.display = 'none';
+      }
+    });
+  });
+
+  function validateRequiredFields() {
+    var allValid = true;
+    requiredFields.forEach(function (fieldName) {
+      var input = form.elements[fieldName];
+      var err = form.querySelector('[data-error-for="' + fieldName + '"]');
+      if (!input.checkValidity()) {
+        allValid = false;
+        input.classList.add('invalid');
+        if (err) err.style.display = 'block';
+      } else {
+        input.classList.remove('invalid');
+        if (err) err.style.display = 'none';
+      }
+    });
+    return allValid;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     warning.style.display = 'none';
@@ -345,8 +389,7 @@
       return;
     }
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    if (!validateRequiredFields()) {
       return;
     }
 
