@@ -56,20 +56,30 @@ export default async function handler(req, res) {
   const tgToken = process.env.TELEGRAM_BOT_TOKEN;
   const tgChatId = process.env.TELEGRAM_CHAT_ID;
   if (tgToken && tgChatId) {
-    const text = [
-      'Новая заявка с сайта khisamova_albina',
-      `Имя: ${name}`,
-      `Телефон: ${phone}`,
-      `Email: ${email}`,
-      service ? `Услуга: ${service}` : null,
-      comment ? `Комментарий: ${comment}` : null,
-    ].filter(Boolean).join('\n');
+    // Normalize the phone number into a Telegram "chat by phone" link (t.me/+<digits>)
+    let digits = String(phone).replace(/[^\d]/g, '');
+    if (digits.length === 11 && digits.startsWith('8')) {
+      digits = '7' + digits.slice(1);
+    }
+    const telegramLink = digits.length >= 10 ? `https://t.me/+${digits}` : null;
+
+    const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    const lines = [
+      '<b>Новая заявка с сайта khisamova_albina</b>',
+      `Имя: ${escapeHtml(name)}`,
+      `Телефон: ${escapeHtml(phone)}`,
+      `Email: ${escapeHtml(email)}`,
+      service ? `Услуга: ${escapeHtml(service)}` : null,
+      comment ? `Комментарий: ${escapeHtml(comment)}` : null,
+      telegramLink ? `\n<a href="${telegramLink}">Написать в Telegram →</a>` : null,
+    ].filter(Boolean);
 
     try {
       await fetch(`https://api.telegram.org/bot${tgToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: tgChatId, text }),
+        body: JSON.stringify({ chat_id: tgChatId, text: lines.join('\n'), parse_mode: 'HTML' }),
       });
     } catch (e) {
       // Supabase already has the lead — Telegram is just a notification, safe to ignore failures
