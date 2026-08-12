@@ -401,7 +401,10 @@
       phone: form.phone.value,
       email: form.email.value,
       service: form.service.value,
-      comment: form.comment.value
+      comment: form.comment.value,
+      consent_pdn: form.consent_pdn.checked,
+      consent_service: form.consent_service.checked,
+      consent_ads: form.consent_ads.checked
     };
 
     fetch('/api/submit-lead', {
