@@ -192,6 +192,27 @@
 
 </main>
 
+<footer style="background: oklch(18% 0.015 40); color: oklch(85% 0.01 60); width: 100%;" data-legal-footer="1">
+  <div style="max-width: 1200px; margin: 0 auto; padding: clamp(32px, 5vw, 56px) clamp(20px, 5vw, 40px);">
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px;" data-legal-grid="1">
+      <div style="font-size: 14px; line-height: 1.9;">
+        <p style="margin: 0;">Кофанова Альбина Гайсовна (самозанятый)</p>
+        <p style="margin: 0;">ИНН 164509401148</p>
+        <p style="margin: 0;">Почта для связи: <a href="mailto:ahisamova7@mail.ru" style="color: oklch(85% 0.01 60);">ahisamova7@mail.ru</a></p>
+      </div>
+      <div style="font-size: 14px; line-height: 1.9; display: flex; flex-direction: column; gap: 2px;">
+        <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Politika%20obrabotki%20persodannih.pdf" target="_blank" style="color: oklch(85% 0.01 60);">Политика в отношении обработки персональных данных</a>
+        <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Dogovor-Oferta.pdf" target="_blank" style="color: oklch(85% 0.01 60);">Договор оферты</a>
+        <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Soglasie%20na%20obrabotku%20persodannih.pdf" target="_blank" style="color: oklch(85% 0.01 60);">Согласие на обработку персональных данных</a>
+        <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Coglasie%20na%20rassilku.pdf" target="_blank" style="color: oklch(85% 0.01 60);">Согласие на рассылку</a>
+      </div>
+      <div style="font-size: 12px; line-height: 1.7; color: oklch(60% 0.01 60);">
+        <p style="margin: 0;">*Facebook и Instagram признаны экстремистской организацией и запрещены в России</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
 <style>
   @media (min-width: 760px) {
     [data-mobile-btn="1"] { display: none !important; }
@@ -217,6 +238,8 @@
     #course > div { grid-template-columns: 1fr !important; }
     #work > div { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
     #work > div > div { grid-column: auto !important; grid-row: auto !important; aspect-ratio: 4/5; }
+
+    [data-legal-grid="1"] { grid-template-columns: 1fr !important; gap: 24px !important; text-align: center; }
   }
 
   #bookingModal { display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 16px; }
@@ -288,11 +311,11 @@
 
         <label class="booking-check">
           <input type="checkbox" name="consent_pdn" required>
-          <span>Я даю согласие на обработку моих персональных данных согласно <a href="/privacy.html" target="_blank" style="color: oklch(45% 0.05 350);">Политике обработки персональных данных</a></span>
+          <span>Я даю <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Soglasie%20na%20obrabotku%20persodannih.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">согласие на обработку моих персональных данных</a> согласно <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Politika%20obrabotki%20persodannih.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">Политике обработки персональных данных</a></span>
         </label>
         <label class="booking-check">
           <input type="checkbox" name="consent_service" required>
-          <span>Я согласен получать информационные сообщения по услугам (подтверждения, напоминания, изменения)</span>
+          <span>Я даю <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Coglasie%20na%20rassilku.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">согласие на получение информационных сообщений</a> по услугам</span>
         </label>
         <label class="booking-check">
           <input type="checkbox" name="consent_ads" required>
