@@ -327,16 +327,16 @@
           <span>Я даю <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Soglasie%20na%20obrabotku%20persodannih.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">согласие на обработку моих персональных данных</a> согласно <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Politika%20obrabotki%20persodannih.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">Политике обработки персональных данных</a></span>
         </label>
         <label class="booking-check">
-          <input type="checkbox" name="consent_service" required>
+          <input type="checkbox" name="consent_service">
           <span>Я даю <a href="https://vfyimlsjishzyumhlnog.supabase.co/storage/v1/object/public/public-documents/Coglasie%20na%20rassilku.pdf" target="_blank" style="color: oklch(50% 0.14 350); text-decoration: underline;">согласие на получение информационных сообщений</a> по услугам</span>
         </label>
         <label class="booking-check">
-          <input type="checkbox" name="consent_ads" required>
-          <span>Я согласен(на) на получение рекламных сообщений о специальных предложениях, акциях и услугах (ст. 18 ФЗ «О рекламе»)</span>
+          <input type="checkbox" name="consent_ads">
+          <span>Я согласен(на) на получение рекламных сообщений о специальных предложениях, акциях и услугах (ст. 18 ФЗ «О рекламе»). Обещаю не спамить, только полезные предложения. Вы всегда сможете отписаться одним кликом.</span>
         </label>
 
         <p id="bookingConsentWarning" style="display: none; font-size: 12px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 10px 12px; margin: 4px 0 0;">
-          Чтобы отправить заявку, необходимо дать все согласия. Я серьёзно отношусь к хранению персональных данных и исключаю любую утечку. И я сама не люблю спам, поэтому буду редко информировать только о самом интересном.
+          Чтобы отправить заявку, необходимо дать согласие на обработку персональных данных. Я серьёзно отношусь к хранению персональных данных и исключаю любую утечку.
         </p>
         <p id="bookingErrorMsg" style="display: none; font-size: 12px; line-height: 1.5; color: oklch(45% 0.13 30); background: oklch(93% 0.03 30); border-radius: 2px; padding: 10px 12px; margin: 4px 0 0;">
           Не удалось отправить заявку. Пожалуйста, напишите нам напрямую в <a href="https://www.instagram.com/khisamova_albina/" target="_blank" style="color: oklch(45% 0.05 350);">Instagram</a>.
@@ -437,9 +437,7 @@
     warning.style.display = 'none';
     errorMsg.style.display = 'none';
 
-    var checks = form.querySelectorAll('input[type="checkbox"]');
-    var allChecked = Array.prototype.every.call(checks, function (c) { return c.checked; });
-    if (!allChecked) {
+    if (!form.consent_pdn.checked) {
       warning.style.display = 'block';
       return;
     }
