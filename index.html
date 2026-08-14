@@ -193,7 +193,7 @@
         <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 16px;">Контакты</p>
         <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; margin: 0 0 16px; max-width: 420px;">Готовы к новому образу?</h2>
         <p style="font-size: 17px; line-height: 1.6; color: oklch(42% 0.04 40); margin: 0 0 28px; max-width: 400px;">Напишите пару слов о своём событии — отвечу лично в течение дня и подберу время.</p>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 32px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 32px;" data-contact-buttons="1">
           <button type="button" data-open-booking style="display: inline-flex; align-items: center; gap: 10px; background: oklch(30% 0.045 40); color: oklch(96.5% 0.012 75); padding: 15px 26px; border-radius: 2px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: 'Manrope', sans-serif;">
             Оставить заявку
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
@@ -271,6 +271,8 @@
     [data-contact-photo="1"] { order: -1; height: 380px !important; }
     [data-contact-grid="1"] > div:first-child { padding-left: clamp(20px, 5vw, 40px) !important; }
     [data-contact-copyright="1"] { position: static !important; margin-top: 12px !important; }
+    [data-contact-buttons="1"] { flex-direction: column; }
+    [data-contact-buttons="1"] button { width: 100% !important; justify-content: center !important; }
 
     #services > div { grid-template-columns: 1fr !important; }
     #course > div { grid-template-columns: 1fr !important; }
