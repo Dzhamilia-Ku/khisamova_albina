@@ -187,19 +187,40 @@
     </div>
   </section>
 
-  <section id="contact" style="padding: clamp(40px, 6vw, 64px) 0 clamp(48px, 7vw, 80px); border-top: 1px solid oklch(85% 0.02 70); text-align: center;">
-    <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 16px;">Контакты</p>
-    <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(30px, 4vw, 48px); margin: 0 0 32px; max-width: 620px; margin-left: auto; margin-right: auto;">Обсудим ваш образ в directs</h2>
-    <a href="https://www.instagram.com/khisamova_albina/" target="_blank" style="display: inline-flex; align-items: center; gap: 10px; background: oklch(30% 0.045 40); color: oklch(96.5% 0.012 75); padding: 17px 34px; border-radius: 2px; font-size: 16px; font-weight: 600;">
-      @khisamova_albina
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
-    </a>
+  <section id="contact" style="margin: 0 calc(50% - 50vw); width: 100vw; height: 600px; overflow: hidden; border-top: 1px solid oklch(85% 0.02 70);" data-contact="1">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; height: 100%;" data-contact-grid="1">
+      <div style="background: oklch(87% 0.025 65); padding: clamp(24px, 4vw, 40px) clamp(20px, 5vw, 40px); padding-left: calc(max(0px, (100vw - 1200px) / 2) + clamp(20px, 5vw, 40px)); display: flex; flex-direction: column; justify-content: center;">
+        <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 16px;">Контакты</p>
+        <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; margin: 0 0 16px; max-width: 420px;">Готовы к новому образу?</h2>
+        <p style="font-size: 17px; line-height: 1.6; color: oklch(42% 0.04 40); margin: 0 0 28px; max-width: 400px;">Напишите пару слов о своём событии — отвечу лично в течение дня и подберу время.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 32px;">
+          <button type="button" data-open-booking style="display: inline-flex; align-items: center; gap: 10px; background: oklch(30% 0.045 40); color: oklch(96.5% 0.012 75); padding: 15px 26px; border-radius: 2px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: 'Manrope', sans-serif;">
+            Оставить заявку
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
+          </button>
+          <button type="button" data-open-direct style="display: inline-flex; align-items: center; gap: 10px; background: oklch(93% 0.025 350); color: oklch(30% 0.045 40); padding: 15px 26px; border-radius: 2px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; font-family: 'Manrope', sans-serif;">
+            Написать напрямую
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
+          </button>
+        </div>
+        <div style="border-top: 1px solid oklch(78% 0.03 350); padding-top: 20px; display: flex; gap: 48px; margin-bottom: 28px;">
+          <div>
+            <p style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 6px;">Где</p>
+            <p style="font-size: 15px; margin: 0; color: oklch(30% 0.045 40);">Казань, студия · выезд по городу</p>
+          </div>
+          <div>
+            <p style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 6px;">Ответ</p>
+            <p style="font-size: 15px; margin: 0; color: oklch(30% 0.045 40);">В течение дня</p>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: oklch(55% 0.03 40); margin: 0;">© 2026 Albina Khisamova</p>
+      </div>
+      <div style="position: relative; overflow: hidden;" data-contact-photo="1">
+        <img src="assets/contact-portrait.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block;">
+        <span style="position: absolute; bottom: 20px; right: 20px; font-size: 13px; color: oklch(96.5% 0.012 75 / 0.9);">Казань</span>
+      </div>
+    </div>
   </section>
-
-  <footer style="padding: 24px 0 48px; border-top: 1px solid oklch(85% 0.02 70); display: flex; justify-content: space-between; font-size: 13px; color: oklch(55% 0.03 40);">
-    <span>© 2026 Albina Khisamova</span>
-    <span>Казань</span>
-  </footer>
 
 </main>
 
@@ -244,6 +265,11 @@
     [data-about-photo="1"] { order: -1; height: 420px !important; }
     [data-about-photo="1"] img { object-position: 60% 20% !important; transform: scale(1) !important; }
     [data-about-heading="1"], [data-about-body="1"] { max-width: none !important; }
+
+    [data-contact="1"] { height: auto !important; }
+    [data-contact-grid="1"] { grid-template-columns: 1fr !important; height: auto !important; }
+    [data-contact-photo="1"] { order: -1; height: 380px !important; }
+    [data-contact-grid="1"] > div:first-child { padding-left: clamp(20px, 5vw, 40px) !important; }
 
     #services > div { grid-template-columns: 1fr !important; }
     #course > div { grid-template-columns: 1fr !important; }
@@ -375,6 +401,32 @@
   </div>
 </div>
 
+<div style="position: fixed; inset: 0; background: oklch(20% 0.03 40 / 0.45); display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px;" data-direct-overlay="1">
+  <div style="position: relative; background: oklch(96.5% 0.012 75); border-radius: 4px; max-width: 420px; width: 100%; padding: clamp(32px, 5vw, 40px) clamp(24px, 5vw, 32px);" data-direct-card="1">
+    <button type="button" aria-label="Закрыть" data-direct-close style="position: absolute; top: 18px; right: 18px; background: none; border: none; cursor: pointer; padding: 4px; color: oklch(30% 0.045 40);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+    </button>
+    <h3 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(20px, 2.6vw, 24px); line-height: 1.3; margin: 0 0 20px; color: oklch(30% 0.045 40); padding-right: 24px;">Куда вам удобнее написать?</h3>
+    <div style="display: flex; flex-direction: column; gap: 10px;" data-direct-list="1">
+      <a href="https://t.me/khisamova_albina" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 2px; background: oklch(87% 0.025 65); color: oklch(30% 0.045 40); font-size: 15px; font-weight: 600;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex-shrink: 0;"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7Z"></path></svg>
+        Telegram
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-left: auto; flex-shrink: 0;"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
+      </a>
+      <a href="https://wa.me/79046614222" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 2px; background: oklch(87% 0.025 65); color: oklch(30% 0.045 40); font-size: 15px; font-weight: 600;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex-shrink: 0;"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 8.5 19.5L3 21Z"></path><path d="M8.5 9.5c0 3.5 2.5 6 6 6"></path></svg>
+        WhatsApp
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-left: auto; flex-shrink: 0;"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
+      </a>
+      <a href="https://max.ru/c/-71308291162224" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 2px; background: oklch(87% 0.025 65); color: oklch(30% 0.045 40); font-size: 15px; font-weight: 600;">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex-shrink: 0; font-size: 13px; font-weight: 700;">M</span>
+        MAX
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-left: auto; flex-shrink: 0;"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   var modal = document.getElementById('bookingModal');
@@ -479,6 +531,30 @@
       submitBtn.disabled = false;
       submitBtn.textContent = 'Отправить';
     });
+  });
+})();
+
+(function () {
+  var overlay = document.querySelector('[data-direct-overlay]');
+  var closeBtn = document.querySelector('[data-direct-close]');
+  if (!overlay) return;
+
+  function open(e) {
+    if (e) e.preventDefault();
+    overlay.style.display = 'flex';
+  }
+  function close() {
+    overlay.style.display = 'none';
+  }
+  document.querySelectorAll('[data-open-direct]').forEach(function (el) {
+    el.addEventListener('click', open);
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
   });
 })();
 </script>
