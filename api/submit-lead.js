@@ -111,10 +111,12 @@ export default async function handler(req, res) {
   try {
     const putRes = await putObject({ bucket, key, body, accessKeyId, secretKey });
     if (!putRes.ok) {
+      console.error('YC put failed', putRes.status, await putRes.text());
       res.status(502).json({ error: 'Yandex Object Storage write failed' });
       return;
     }
   } catch (err) {
+    console.error('YC put threw', err);
     res.status(500).json({ error: 'Internal error' });
     return;
   }
