@@ -325,7 +325,7 @@
           </div>
           <div class="booking-field">
             <label for="bk-phone">Номер телефона *</label>
-            <input type="tel" id="bk-phone" name="phone" required placeholder="+7 999 123-45-67">
+            <input type="tel" id="bk-phone" name="phone" required placeholder="+7 999 123-45-67" pattern="(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}" title="Введите номер в формате +7 999 123-45-67">
             <span class="booking-field-hint">Например: +7 999 123-45-67</span>
             <span class="booking-field-error" data-error-for="phone">Заполните поле</span>
           </div>
@@ -463,8 +463,9 @@
   var requiredFields = ['name', 'phone', 'email'];
 
   function fieldErrorText(fieldName, input) {
-    if (fieldName === 'email' && !input.validity.valueMissing) {
-      return 'Введите корректный email, например name@mail.ru';
+    if (!input.validity.valueMissing) {
+      if (fieldName === 'email') return 'Введите корректный email, например name@mail.ru';
+      if (fieldName === 'phone') return 'Введите номер в формате +7 999 123-45-67';
     }
     return 'Заполните поле';
   }
