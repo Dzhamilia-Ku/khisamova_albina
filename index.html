@@ -54,6 +54,18 @@
     <a href="#contact" style="font-size: 17px;">Контакты</a>
   </div>
 </div>
+<script>
+  (function () {
+    var header = document.querySelector('[data-header]');
+    if (!header) return;
+    function setHeaderHeight() {
+      document.documentElement.style.setProperty('--header-h', header.getBoundingClientRect().height + 'px');
+    }
+    setHeaderHeight();
+    window.addEventListener('resize', setHeaderHeight);
+    window.addEventListener('orientationchange', setHeaderHeight);
+  })();
+</script>
 
 <main id="top" style="max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 40px);">
 
@@ -253,7 +265,7 @@
   @media (max-width: 759px) {
     [data-header="1"] { position: static !important; }
     [data-mobile-btn="1"] { display: block !important; }
-    [data-hero="1"] { height: auto !important; min-height: 0 !important; max-height: none !important; aspect-ratio: 0.68 !important; }
+    [data-hero="1"] { height: auto !important; min-height: 0 !important; max-height: calc(100svh - var(--header-h, 90px)) !important; aspect-ratio: 0.68 !important; }
     [data-hero-picture="1"] img { object-position: 78% top !important; }
     [data-hero-text="1"] { padding-bottom: 36px !important; text-align: center !important; }
     [data-hero-label="1"] { font-size: 12px !important; margin: 0 0 12px !important; }
