@@ -345,9 +345,8 @@
         <div class="booking-row">
           <div class="booking-field">
             <label for="bk-email">Email *</label>
-            <input type="email" id="bk-email" name="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Введите email в формате имя@домен.ru">
+            <input type="email" id="bk-email" name="email" required>
             <span class="booking-field-error" data-error-for="email">Заполните поле</span>
-            <span class="booking-field-hint" id="bk-email-suggest" style="display: none; color: oklch(45% 0.1 70);"></span>
           </div>
           <div class="booking-field">
             <label for="bk-service">Какой образ вам нужен?</label>
@@ -475,9 +474,50 @@
 
   var requiredFields = ['name', 'phone', 'email'];
 
+  // Known-provider typo list: syntactically valid but non-existent/misspelled
+  // domains for popular Russian/international mail services. yandex.com is
+  // deliberately NOT listed — it's a real, working Yandex domain, not a typo.
+  var EMAIL_TYPOS = {
+    'gmail.ru': 'gmail.com', 'gmai.com': 'gmail.com', 'gmial.com': 'gmail.com',
+    'gmail.cm': 'gmail.com', 'gmaill.com': 'gmail.com', 'gnail.com': 'gmail.com', 'gmail.co': 'gmail.com',
+    'mail.com': 'mail.ru', 'mail.ry': 'mail.ru', 'mail.rue': 'mail.ru', 'mial.ru': 'mail.ru', 'mai.ru': 'mail.ru',
+    'yandex.r': 'yandex.ru', 'yandex.ru.com': 'yandex.ru', 'yadex.ru': 'yandex.ru',
+    'rambler.com': 'rambler.ru', 'rambler.ry': 'rambler.ru',
+    'iclod.com': 'icloud.com', 'icoud.com': 'icloud.com',
+    'outlok.com': 'outlook.com', 'outllok.com': 'outlook.com',
+    'hotmial.com': 'hotmail.com', 'hotmai.com': 'hotmail.com'
+  };
+
+  function hasEmailFormatError(value) {
+    if (/\s/.test(value)) return true;
+    if (/[^\x00-\x7F]/.test(value)) return true;
+    var parts = value.split('@');
+    if (parts.length !== 2) return true;
+    var local = parts[0], domain = parts[1];
+    if (!local || !domain) return true;
+    if (!/^[a-zA-Z0-9.\-_%+]+$/.test(local)) return true;
+    if (local.charAt(0) === '.' || local.charAt(local.length - 1) === '.' || local.indexOf('..') !== -1) return true;
+    if (!/^[a-zA-Z0-9.\-]+$/.test(domain)) return true;
+    if (domain.indexOf('.') === -1) return true;
+    if (domain.charAt(0) === '.' || domain.charAt(domain.length - 1) === '.' || domain.indexOf('..') !== -1) return true;
+    var domainParts = domain.split('.');
+    if (domainParts[domainParts.length - 1].length < 2) return true;
+    return false;
+  }
+
+  function getEmailError(rawValue) {
+    if (!rawValue) return null;
+    if (hasEmailFormatError(rawValue)) return 'Введите корректный адрес электронной почты';
+    var domain = rawValue.split('@')[1].toLowerCase();
+    if (EMAIL_TYPOS.hasOwnProperty(domain)) return 'Введите корректный адрес электронной почты';
+    return null;
+  }
+
   function fieldErrorText(fieldName, input) {
+    if (fieldName === 'email' && !input.validity.valueMissing) {
+      return input.validationMessage || 'Введите корректный адрес электронной почты';
+    }
     if (!input.validity.valueMissing) {
-      if (fieldName === 'email') return 'Введите корректный email, например name@mail.ru';
       if (fieldName === 'phone') return 'Введите номер в формате +7 999 123-45-67';
     }
     return 'Заполните поле';
@@ -486,6 +526,9 @@
   requiredFields.forEach(function (fieldName) {
     var input = form.elements[fieldName];
     input.addEventListener('input', function () {
+      if (fieldName === 'email') {
+        input.setCustomValidity(getEmailError(input.value) || '');
+      }
       var err = form.querySelector('[data-error-for="' + fieldName + '"]');
       if (input.checkValidity()) {
         input.classList.remove('invalid');
@@ -496,90 +539,13 @@
     });
   });
 
-  var EMAIL_PROVIDERS = {
-    gmail: ['gmail.com'],
-    yandex: ['yandex.ru', 'yandex.com', 'yandex.by', 'yandex.kz', 'yandex.ua'],
-    ya: ['ya.ru'],
-    mail: ['mail.ru', 'mail.com'],
-    yahoo: ['yahoo.com'],
-    hotmail: ['hotmail.com'],
-    outlook: ['outlook.com'],
-    icloud: ['icloud.com'],
-    rambler: ['rambler.ru'],
-    bk: ['bk.ru'],
-    inbox: ['inbox.ru'],
-    list: ['list.ru'],
-    proton: ['proton.me', 'protonmail.com']
-  };
-
-  function levenshtein(a, b) {
-    // Damerau-Levenshtein (with adjacent transposition) so swapped letters
-    // like "gmial" count as 1 edit, not 2.
-    var m = a.length, n = b.length;
-    var d = [], i, j;
-    for (i = 0; i <= m; i++) d[i] = [i];
-    for (j = 0; j <= n; j++) d[0][j] = j;
-    for (i = 1; i <= m; i++) {
-      for (j = 1; j <= n; j++) {
-        var cost = a[i - 1] === b[j - 1] ? 0 : 1;
-        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
-        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
-          d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
-        }
-      }
-    }
-    return d[m][n];
-  }
-
-  function suggestEmailDomain(email) {
-    var at = email.lastIndexOf('@');
-    if (at === -1) return null;
-    var domain = email.slice(at + 1).toLowerCase();
-    if (!domain) return null;
-    var dotIndex = domain.indexOf('.');
-    var name = dotIndex === -1 ? domain : domain.slice(0, dotIndex);
-
-    if (EMAIL_PROVIDERS.hasOwnProperty(name)) {
-      if (EMAIL_PROVIDERS[name].indexOf(domain) === -1) {
-        return email.slice(0, at + 1) + EMAIL_PROVIDERS[name][0];
-      }
-      return null;
-    }
-
-    var bestKey = null, bestDist = 3;
-    Object.keys(EMAIL_PROVIDERS).forEach(function (key) {
-      var dist = levenshtein(name, key);
-      if (dist < bestDist) { bestDist = dist; bestKey = key; }
-    });
-    if (bestKey && bestDist === 1 && name.length > 2) {
-      return email.slice(0, at + 1) + EMAIL_PROVIDERS[bestKey][0];
-    }
-    return null;
-  }
-
-  var emailInput = form.elements['email'];
-  var emailSuggest = document.getElementById('bk-email-suggest');
-  emailInput.addEventListener('input', function () {
-    var suggestion = suggestEmailDomain(emailInput.value.trim());
-    if (suggestion && suggestion !== emailInput.value.trim()) {
-      emailSuggest.innerHTML = 'Может, вы имели в виду <button type="button" id="bk-email-fix" style="background:none;border:none;padding:0;color:oklch(50% 0.14 350);text-decoration:underline;cursor:pointer;font:inherit;">' + suggestion + '</button>?';
-      emailSuggest.style.display = 'block';
-    } else {
-      emailSuggest.style.display = 'none';
-    }
-  });
-  emailSuggest.addEventListener('click', function (e) {
-    if (e.target && e.target.id === 'bk-email-fix') {
-      emailInput.value = e.target.textContent;
-      emailSuggest.style.display = 'none';
-      emailInput.focus();
-    }
-  });
-
   function validateRequiredFields() {
     var allValid = true;
     requiredFields.forEach(function (fieldName) {
       var input = form.elements[fieldName];
+      if (fieldName === 'email') {
+        input.setCustomValidity(getEmailError(input.value) || '');
+      }
       var err = form.querySelector('[data-error-for="' + fieldName + '"]');
       if (!input.checkValidity()) {
         allValid = false;
