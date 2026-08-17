@@ -347,6 +347,7 @@
             <label for="bk-email">Email *</label>
             <input type="email" id="bk-email" name="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]{2,}" title="Введите email в формате имя@домен.ru">
             <span class="booking-field-error" data-error-for="email">Заполните поле</span>
+            <span class="booking-field-hint" id="bk-email-suggest" style="display: none; color: oklch(45% 0.1 70);"></span>
           </div>
           <div class="booking-field">
             <label for="bk-service">Какой образ вам нужен?</label>
@@ -493,6 +494,86 @@
         err.textContent = fieldErrorText(fieldName, input);
       }
     });
+  });
+
+  var EMAIL_PROVIDERS = {
+    gmail: ['gmail.com'],
+    yandex: ['yandex.ru', 'yandex.com', 'yandex.by', 'yandex.kz', 'yandex.ua'],
+    ya: ['ya.ru'],
+    mail: ['mail.ru', 'mail.com'],
+    yahoo: ['yahoo.com'],
+    hotmail: ['hotmail.com'],
+    outlook: ['outlook.com'],
+    icloud: ['icloud.com'],
+    rambler: ['rambler.ru'],
+    bk: ['bk.ru'],
+    inbox: ['inbox.ru'],
+    list: ['list.ru'],
+    proton: ['proton.me', 'protonmail.com']
+  };
+
+  function levenshtein(a, b) {
+    // Damerau-Levenshtein (with adjacent transposition) so swapped letters
+    // like "gmial" count as 1 edit, not 2.
+    var m = a.length, n = b.length;
+    var d = [], i, j;
+    for (i = 0; i <= m; i++) d[i] = [i];
+    for (j = 0; j <= n; j++) d[0][j] = j;
+    for (i = 1; i <= m; i++) {
+      for (j = 1; j <= n; j++) {
+        var cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+        if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+        }
+      }
+    }
+    return d[m][n];
+  }
+
+  function suggestEmailDomain(email) {
+    var at = email.lastIndexOf('@');
+    if (at === -1) return null;
+    var domain = email.slice(at + 1).toLowerCase();
+    if (!domain) return null;
+    var dotIndex = domain.indexOf('.');
+    var name = dotIndex === -1 ? domain : domain.slice(0, dotIndex);
+
+    if (EMAIL_PROVIDERS.hasOwnProperty(name)) {
+      if (EMAIL_PROVIDERS[name].indexOf(domain) === -1) {
+        return email.slice(0, at + 1) + EMAIL_PROVIDERS[name][0];
+      }
+      return null;
+    }
+
+    var bestKey = null, bestDist = 3;
+    Object.keys(EMAIL_PROVIDERS).forEach(function (key) {
+      var dist = levenshtein(name, key);
+      if (dist < bestDist) { bestDist = dist; bestKey = key; }
+    });
+    if (bestKey && bestDist === 1 && name.length > 2) {
+      return email.slice(0, at + 1) + EMAIL_PROVIDERS[bestKey][0];
+    }
+    return null;
+  }
+
+  var emailInput = form.elements['email'];
+  var emailSuggest = document.getElementById('bk-email-suggest');
+  emailInput.addEventListener('input', function () {
+    var suggestion = suggestEmailDomain(emailInput.value.trim());
+    if (suggestion && suggestion !== emailInput.value.trim()) {
+      emailSuggest.innerHTML = 'Может, вы имели в виду <button type="button" id="bk-email-fix" style="background:none;border:none;padding:0;color:oklch(50% 0.14 350);text-decoration:underline;cursor:pointer;font:inherit;">' + suggestion + '</button>?';
+      emailSuggest.style.display = 'block';
+    } else {
+      emailSuggest.style.display = 'none';
+    }
+  });
+  emailSuggest.addEventListener('click', function (e) {
+    if (e.target && e.target.id === 'bk-email-fix') {
+      emailInput.value = e.target.textContent;
+      emailSuggest.style.display = 'none';
+      emailInput.focus();
+    }
   });
 
   function validateRequiredFields() {
