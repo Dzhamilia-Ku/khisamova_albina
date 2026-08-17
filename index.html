@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<div style="position: sticky; top: 0; z-index: 50; background: oklch(96.5% 0.012 75 / 0.9); backdrop-filter: blur(8px); border-bottom: 1px solid oklch(85% 0.02 70);">
+<div style="position: sticky; top: 0; z-index: 50; background: oklch(96.5% 0.012 75 / 0.9); backdrop-filter: blur(8px); border-bottom: 1px solid oklch(85% 0.02 70);" data-header="1">
   <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 40px);">
     <a href="#top" style="font-family: 'Bodoni Moda', serif; font-size: 22px; font-weight: 600; letter-spacing: 0.02em;">Albina Khisamova</a>
     <div style="display: flex; align-items: center; gap: 32px;">
@@ -251,14 +251,15 @@
     [data-desktop-nav="1"] { display: flex !important; }
   }
   @media (max-width: 759px) {
+    [data-header="1"] { position: static !important; }
     [data-mobile-btn="1"] { display: block !important; }
     [data-hero="1"] { height: auto !important; min-height: 0 !important; max-height: none !important; aspect-ratio: 0.68 !important; }
     [data-hero-picture="1"] img { object-position: 78% top !important; }
-    [data-hero-text="1"] { padding-bottom: 36px !important; }
+    [data-hero-text="1"] { padding-bottom: 36px !important; text-align: center !important; }
     [data-hero-label="1"] { font-size: 12px !important; margin: 0 0 12px !important; }
     [data-hero-title="1"] { font-size: 36px !important; margin: 0 0 12px !important; }
-    [data-hero-desc="1"] { font-size: 14px !important; line-height: 1.4 !important; margin: 0 0 18px !important; }
-    [data-hero-cta="1"] { padding: 12px 22px !important; font-size: 14px !important; }
+    [data-hero-desc="1"] { font-size: 14px !important; line-height: 1.4 !important; margin: 0 auto 18px !important; }
+    [data-hero-cta="1"] { padding: 12px 40px !important; font-size: 14px !important; }
 
     [data-about="1"] { height: auto !important; }
     [data-about-grid="1"] { grid-template-columns: 1fr !important; }
