@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Заявки — Albina Khisamova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40); font-family: 'Manrope', sans-serif; }
+  button { font-family: 'Manrope', sans-serif; cursor: pointer; }
+  input { font-family: 'Manrope', sans-serif; }
+
+  #login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  #login-card { background: oklch(99% 0.004 75); border: 1px solid oklch(85% 0.02 70); border-radius: 4px; padding: 32px; max-width: 340px; width: 100%; }
+  #login-card h1 { font-size: 18px; margin: 0 0 16px; }
+  #login-card input { width: 100%; padding: 10px 12px; border: 1px solid oklch(80% 0.02 70); border-radius: 2px; font-size: 14px; margin-bottom: 12px; background: oklch(98% 0.008 75); color: oklch(30% 0.045 40); }
+  #login-card button { width: 100%; padding: 11px; border: none; border-radius: 2px; background: oklch(30% 0.045 40); color: oklch(96.5% 0.012 75); font-size: 14px; font-weight: 600; }
+  #login-error { color: oklch(50% 0.15 30); font-size: 13px; margin: 0 0 10px; display: none; }
+
+  #app { display: none; max-width: 1400px; margin: 0 auto; padding: 24px clamp(16px, 3vw, 32px) 60px; }
+  header.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+  header.bar h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header.bar .count { font-size: 13px; color: oklch(50% 0.03 60); }
+  #logout-btn { background: none; border: 1px solid oklch(80% 0.02 70); border-radius: 2px; padding: 8px 14px; font-size: 13px; color: oklch(40% 0.04 40); }
+
+  .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .toolbar input[type="search"] { flex: 1 1 220px; padding: 9px 12px; border: 1px solid oklch(80% 0.02 70); border-radius: 2px; font-size: 14px; background: oklch(99% 0.004 75); }
+  .btn { padding: 9px 16px; border-radius: 2px; border: none; font-size: 13px; font-weight: 600; white-space: nowrap; }
+  .btn-primary { background: oklch(30% 0.045 40); color: oklch(96.5% 0.012 75); }
+  .btn-danger { background: oklch(55% 0.15 30); color: oklch(98% 0.01 30); }
+  .btn-secondary { background: oklch(90% 0.02 70); color: oklch(30% 0.045 40); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  table { width: 100%; border-collapse: collapse; background: oklch(99% 0.004 75); font-size: 13px; }
+  thead th { text-align: left; padding: 10px 10px; border-bottom: 2px solid oklch(85% 0.02 70); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: oklch(50% 0.03 60); white-space: nowrap; }
+  tbody td { padding: 10px; border-bottom: 1px solid oklch(90% 0.015 70); vertical-align: top; }
+  tbody tr:hover { background: oklch(97% 0.01 70); }
+  td.wrap { max-width: 220px; overflow-wrap: break-word; }
+  .consent-yes { color: oklch(50% 0.12 145); }
+  .consent-no { color: oklch(65% 0.02 60); }
+  .row-del { background: none; border: none; color: oklch(55% 0.15 30); font-size: 16px; padding: 2px 6px; }
+  #empty-state, #loading-state { text-align: center; padding: 60px 20px; color: oklch(55% 0.03 60); font-size: 14px; }
+  #table-wrap { overflow-x: auto; border: 1px solid oklch(90% 0.015 70); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div id="login-card">
+    <h1>Вход в заявки</h1>
+    <p id="login-error"></p>
+    <input type="password" id="login-password" placeholder="Пароль" autocomplete="current-password">
+    <button id="login-submit" type="button">Войти</button>
+  </div>
+</div>
+
+<div id="app">
+  <header class="bar">
+    <div>
+      <h1>Заявки с сайта</h1>
+      <p class="count" id="lead-count"></p>
+    </div>
+    <button id="logout-btn" type="button">Выйти</button>
+  </header>
+
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Поиск по имени, телефону, email…">
+    <button class="btn btn-secondary" id="export-btn" type="button">Экспорт в Excel</button>
+    <button class="btn btn-danger" id="delete-selected-btn" type="button" disabled>Удалить выбранные (0)</button>
+  </div>
+
+  <div id="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="select-all"></th>
+          <th>Дата</th>
+          <th>Имя</th>
+          <th>Телефон</th>
+          <th>Email</th>
+          <th>Услуга</th>
+          <th>Комментарий</th>
+          <th>ПДн</th>
+          <th>Рассылка</th>
+          <th>Реклама</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <div id="loading-state" style="display:none;">Загрузка…</div>
+    <div id="empty-state" style="display:none;">Заявок пока нет.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var loginScreen = document.getElementById('login-screen');
+  var app = document.getElementById('app');
+  var loginError = document.getElementById('login-error');
+  var loginPassword = document.getElementById('login-password');
+  var loginSubmit = document.getElementById('login-submit');
+  var logoutBtn = document.getElementById('logout-btn');
+  var searchInput = document.getElementById('search');
+  var tableBody = document.getElementById('table-body');
+  var selectAll = document.getElementById('select-all');
+  var deleteSelectedBtn = document.getElementById('delete-selected-btn');
+  var exportBtn = document.getElementById('export-btn');
+  var leadCount = document.getElementById('lead-count');
+  var loadingState = document.getElementById('loading-state');
+  var emptyState = document.getElementById('empty-state');
+
+  var allLeads = [];
+  var selectedKeys = new Set();
+
+  function showLogin(message) {
+    loginScreen.style.display = 'flex';
+    app.style.display = 'none';
+    if (message) {
+      loginError.textContent = message;
+      loginError.style.display = 'block';
+    }
+  }
+
+  function showApp() {
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+    loadLeads();
+  }
+
+  function escapeHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function consentCell(v) {
+    return v ? '<span class="consent-yes">✓</span>' : '<span class="consent-no">—</span>';
+  }
+
+  function matchesSearch(lead, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return ['name', 'phone', 'email', 'service', 'message'].some(function (f) {
+      return String(lead[f] || '').toLowerCase().indexOf(q) !== -1;
+    });
+  }
+
+  function render() {
+    var q = searchInput.value.trim();
+    var filtered = allLeads.filter(function (l) { return matchesSearch(l, q); });
+
+    leadCount.textContent = allLeads.length + (q ? (' всего · ' + filtered.length + ' найдено') : ' заявок');
+
+    tableBody.innerHTML = filtered.map(function (l) {
+      var checked = selectedKeys.has(l.key) ? 'checked' : '';
+      return '<tr data-key="' + escapeHtml(l.key) + '">' +
+        '<td><input type="checkbox" class="row-check" ' + checked + '></td>' +
+        '<td>' + escapeHtml(formatDate(l.submitted_at)) + '</td>' +
+        '<td class="wrap">' + escapeHtml(l.name) + '</td>' +
+        '<td>' + escapeHtml(l.phone) + '</td>' +
+        '<td class="wrap">' + escapeHtml(l.email) + '</td>' +
+        '<td class="wrap">' + escapeHtml(l.service) + '</td>' +
+        '<td class="wrap">' + escapeHtml(l.message) + '</td>' +
+        '<td>' + consentCell(l.consent_pdn) + '</td>' +
+        '<td>' + consentCell(l.consent_service) + '</td>' +
+        '<td>' + consentCell(l.consent_ads) + '</td>' +
+        '<td><button class="row-del" type="button" title="Удалить">✕</button></td>' +
+        '</tr>';
+    }).join('');
+
+    emptyState.style.display = filtered.length === 0 ? 'block' : 'none';
+    updateDeleteBtn();
+  }
+
+  function updateDeleteBtn() {
+    deleteSelectedBtn.textContent = 'Удалить выбранные (' + selectedKeys.size + ')';
+    deleteSelectedBtn.disabled = selectedKeys.size === 0;
+  }
+
+  async function loadLeads() {
+    loadingState.style.display = 'block';
+    tableBody.innerHTML = '';
+    emptyState.style.display = 'none';
+    try {
+      var r = await fetch('/api/admin-leads');
+      if (r.status === 401) {
+        showLogin('Сессия истекла, войдите снова');
+        return;
+      }
+      var data = await r.json();
+      allLeads = data.leads || [];
+      selectedKeys = new Set();
+      render();
+    } catch (e) {
+      leadCount.textContent = 'Не удалось загрузить заявки';
+    } finally {
+      loadingState.style.display = 'none';
+    }
+  }
+
+  async function deleteKeys(keys) {
+    var r = await fetch('/api/admin-leads', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ keys: keys })
+    });
+    if (r.status === 401) {
+      showLogin('Сессия истекла, войдите снова');
+      return;
+    }
+    var data = await r.json();
+    var okKeys = (data.results || []).filter(function (x) { return x.ok; }).map(function (x) { return x.key; });
+    allLeads = allLeads.filter(function (l) { return okKeys.indexOf(l.key) === -1; });
+    okKeys.forEach(function (k) { selectedKeys.delete(k); });
+    render();
+  }
+
+  loginSubmit.addEventListener('click', doLogin);
+  loginPassword.addEventListener('keydown', function (e) { if (e.key === 'Enter') doLogin(); });
+
+  async function doLogin() {
+    loginError.style.display = 'none';
+    var pw = loginPassword.value;
+    if (!pw) return;
+    loginSubmit.disabled = true;
+    try {
+      var r = await fetch('/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      if (!r.ok) {
+        loginError.textContent = 'Неверный пароль';
+        loginError.style.display = 'block';
+        return;
+      }
+      loginPassword.value = '';
+      showApp();
+    } catch (e) {
+      loginError.textContent = 'Ошибка соединения';
+      loginError.style.display = 'block';
+    } finally {
+      loginSubmit.disabled = false;
+    }
+  }
+
+  logoutBtn.addEventListener('click', async function () {
+    await fetch('/api/admin-login', { method: 'DELETE' });
+    showLogin();
+  });
+
+  searchInput.addEventListener('input', render);
+
+  selectAll.addEventListener('change', function () {
+    var q = searchInput.value.trim();
+    var filtered = allLeads.filter(function (l) { return matchesSearch(l, q); });
+    if (selectAll.checked) {
+      filtered.forEach(function (l) { selectedKeys.add(l.key); });
+    } else {
+      filtered.forEach(function (l) { selectedKeys.delete(l.key); });
+    }
+    render();
+  });
+
+  tableBody.addEventListener('change', function (e) {
+    if (!e.target.classList.contains('row-check')) return;
+    var key = e.target.closest('tr').getAttribute('data-key');
+    if (e.target.checked) selectedKeys.add(key);
+    else selectedKeys.delete(key);
+    updateDeleteBtn();
+  });
+
+  tableBody.addEventListener('click', function (e) {
+    if (!e.target.classList.contains('row-del')) return;
+    var tr = e.target.closest('tr');
+    var key = tr.getAttribute('data-key');
+    var lead = allLeads.find(function (l) { return l.key === key; });
+    var label = lead ? (lead.name + ' (' + lead.phone + ')') : key;
+    if (!confirm('Удалить заявку — ' + label + '?\n\nДанные будут удалены безвозвратно, включая копию в Яндекс.Cloud.')) return;
+    deleteKeys([key]);
+  });
+
+  deleteSelectedBtn.addEventListener('click', function () {
+    var keys = Array.from(selectedKeys);
+    if (keys.length === 0) return;
+    if (!confirm('Удалить ' + keys.length + ' заявок?\n\nДанные будут удалены безвозвратно, включая копию в Яндекс.Cloud.')) return;
+    deleteKeys(keys);
+  });
+
+  function csvEscape(v) {
+    var s = String(v == null ? '' : v);
+    if (/[",;\n]/.test(s)) {
+      s = '"' + s.replace(/"/g, '""') + '"';
+    }
+    return s;
+  }
+
+  exportBtn.addEventListener('click', function () {
+    var q = searchInput.value.trim();
+    var rows = allLeads.filter(function (l) { return matchesSearch(l, q); });
+    var header = ['Дата', 'Имя', 'Телефон', 'Email', 'Услуга', 'Комментарий', 'Согласие на ПДн', 'Согласие на рассылку', 'Согласие на рекламу'];
+    var lines = [header.map(csvEscape).join(';')];
+    rows.forEach(function (l) {
+      lines.push([
+        formatDate(l.submitted_at),
+        l.name,
+        l.phone,
+        l.email,
+        l.service,
+        l.message,
+        l.consent_pdn ? 'Да' : 'Нет',
+        l.consent_service ? 'Да' : 'Нет',
+        l.consent_ads ? 'Да' : 'Нет'
+      ].map(csvEscape).join(';'));
+    });
+    var csv = '﻿' + lines.join('\r\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'заявки-' + new Date().toISOString().slice(0, 10) + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // Probe session on load
+  fetch('/api/admin-leads').then(function (r) {
+    if (r.status === 401) {
+      showLogin();
+    } else {
+      return r.json().then(function (data) {
+        allLeads = data.leads || [];
+        showApp_afterProbe();
+      });
+    }
+  }).catch(function () { showLogin(); });
+
+  function showApp_afterProbe() {
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+    selectedKeys = new Set();
+    render();
+    loadingState.style.display = 'none';
+  }
+})();
+</script>
+
+</body>
+</html>
