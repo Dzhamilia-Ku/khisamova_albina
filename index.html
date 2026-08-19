@@ -36,7 +36,7 @@
       <div style="display: flex; align-items: center; gap: 8px;" data-header-social="1">
         <a href="https://max.ru/u/f9LHodD0cOKSYK0b3uaggozZB6xT3aI5A3iyXANftKRmRTEbGYjHiNyNdVk" target="_blank" aria-label="MAX" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70);"><img src="assets/max-icon.png" alt="" width="20" height="20" style="display: block;"></a>
         <a href="https://www.instagram.com/khisamova_albina/" target="_blank" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70); color: oklch(30% 0.045 40);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6.5l1.1-1.7a1 1 0 0 1 .84-.46h2.12a1 1 0 0 1 .84.46L15 6.5"></path><rect x="3" y="6.5" width="18" height="13" rx="2.5"></rect><circle cx="12" cy="13" r="3.8"></circle><circle cx="17.5" cy="9.3" r="0.6" fill="currentColor" stroke="none"></circle></svg>
         </a>
         <a href="https://t.me/Albina_talk" target="_blank" aria-label="Telegram" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70); color: oklch(30% 0.045 40);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7Z"></path></svg>
@@ -112,8 +112,8 @@
     </div>
   </section>
 
-  <section id="about" style="margin: 0 calc(50% - 50vw); width: 100vw; height: 560px; overflow: hidden;" data-about="1">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; height: 100%;" data-about-grid="1">
+  <section id="about" style="margin: 0 calc(50% - 50vw); width: 100vw; height: calc(max(560px, 47.25vw) - 1.5cm); overflow: hidden;" data-about="1">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: calc(max(560px, 47.25vw) - 1.5cm); height: 100%;" data-about-grid="1">
       <div style="background: oklch(87% 0.025 65); padding: clamp(24px, 4vw, 40px) clamp(20px, 5vw, 40px); padding-left: calc(max(0px, (100vw - 1200px) / 2) + clamp(20px, 5vw, 40px)); display: flex; flex-direction: column; justify-content: flex-start; padding-top: clamp(40px, 6vw, 64px);">
         <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 16px;">Обо мне</p>
         <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(30px, 3.6vw, 42px); line-height: 1.15; margin: 0 0 12px; max-width: 460px; color: oklch(28% 0.045 40);" data-about-heading="1">Макияж — это просто!</h2>
@@ -126,7 +126,10 @@
         </div>
       </div>
       <div style="overflow: hidden; height: 100%;" data-about-photo="1">
-        <img src="assets/about-portrait.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 60% 15%; display: block; transform: scale(1.25); transform-origin: 60% 15%;">
+        <picture>
+          <source media="(max-width: 759px)" srcset="assets/about-portrait-mobile.jpg">
+          <img src="assets/about-portrait.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% top; display: block;">
+        </picture>
       </div>
     </div>
   </section>
@@ -277,9 +280,8 @@
     [data-mobile-break="1"] { display: block !important; }
 
     [data-about="1"] { height: auto !important; }
-    [data-about-grid="1"] { grid-template-columns: 1fr !important; }
-    [data-about-photo="1"] { order: -1; height: 380px !important; }
-    [data-about-photo="1"] img { object-position: 60% 20% !important; transform: scale(1) !important; }
+    [data-about-grid="1"] { grid-template-columns: 1fr !important; grid-template-rows: auto auto !important; }
+    [data-about-photo="1"] { order: -1; height: max(380px, 94.5vw) !important; }
     [data-about-heading="1"], [data-about-subheading="1"], [data-about-body="1"] { max-width: none !important; }
     [data-about-body="1"] p { font-size: 13px !important; line-height: 1.5 !important; }
 
@@ -408,7 +410,7 @@
         <img src="assets/max-icon.png" alt="" width="22" height="22" style="display: block;">
       </a>
       <a href="https://www.instagram.com/khisamova_albina/" target="_blank" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center; width: 128px; height: 27px; border-radius: 2px; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40);">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6.5l1.1-1.7a1 1 0 0 1 .84-.46h2.12a1 1 0 0 1 .84.46L15 6.5"></path><rect x="3" y="6.5" width="18" height="13" rx="2.5"></rect><circle cx="12" cy="13" r="3.8"></circle><circle cx="17.5" cy="9.3" r="0.6" fill="currentColor" stroke="none"></circle></svg>
       </a>
       <a href="https://t.me/Albina_talk" target="_blank" aria-label="Telegram" style="display: inline-flex; align-items: center; justify-content: center; width: 128px; height: 27px; border-radius: 2px; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7Z"></path></svg>
