@@ -9,10 +9,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Albina Khisamova — Makeup Artist</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Fonts are self-hosted (not Google Fonts) so the site loads fully from one host. */
+  @font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(assets/fonts/manrope-cyrillic.woff2) format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(assets/fonts/manrope-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Bodoni Moda'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(assets/fonts/bodoni-moda-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
 <style>
   html { scroll-behavior: smooth; }
+  /* Never let anything widen the page sideways: on iPhone that makes the whole layout
+     (and every 100vw section) wider than the screen, pushing text off both edges.
+     clip (not hidden) keeps the sticky header working. */
+  html, body { overflow-x: clip; }
   body { margin: 0; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40); font-family: 'Manrope', sans-serif; }
   a { color: oklch(30% 0.045 40); text-decoration: none; }
   a:hover { color: oklch(70% 0.05 350); }
@@ -34,7 +43,7 @@
         <a href="#contact" style="font-size: 15px;">Контакты</a>
       </nav>
       <div style="display: flex; align-items: center; gap: 8px;" data-header-social="1">
-        <a href="https://max.ru/u/f9LHodD0cOKSYK0b3uaggozZB6xT3aI5A3iyXANftKRmRTEbGYjHiNyNdVk" target="_blank" aria-label="MAX" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70);"><img src="assets/max-icon.png" alt="" width="20" height="20" style="display: block;"></a>
+        <a href="https://max.ru/u/f9LHodD0cOKSYK0b3uaggozZB6xT3aI5A3iyXANftKRmRTEbGYjHiNyNdVk" target="_blank" aria-label="MAX" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70);"><img src="assets/max-icon.webp" alt="" width="20" height="20" style="display: block;"></a>
         <a href="https://www.instagram.com/khisamova_albina/" target="_blank" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 999px; border: 1px solid oklch(85% 0.02 70); color: oklch(30% 0.045 40);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6.5l1.1-1.7a1 1 0 0 1 .84-.46h2.12a1 1 0 0 1 .84.46L15 6.5"></path><rect x="3" y="6.5" width="18" height="13" rx="2.5"></rect><circle cx="12" cy="13" r="3.8"></circle><circle cx="17.5" cy="9.3" r="0.6" fill="currentColor" stroke="none"></circle></svg>
         </a>
@@ -71,8 +80,8 @@
 
   <section style="position: relative; aspect-ratio: 1.5 / 1; min-height: 480px; max-height: 96vh; width: 100vw; margin-left: calc(50% - 50vw); display: flex; align-items: flex-end; overflow: hidden;" data-hero="1">
     <picture data-hero-picture="1" style="position: absolute; inset: 0; z-index: 0;">
-      <source media="(max-width: 759px)" srcset="assets/hero-mobile.jpg">
-      <img src="assets/hero-desktop.jpg" alt="Альбина Хисамова" style="width: 100%; height: 100%; object-fit: cover; object-position: center 32%; display: block;">
+      <source media="(max-width: 759px)" srcset="assets/hero-mobile.webp">
+      <img src="assets/hero-desktop.webp" alt="Альбина Хисамова" style="width: 100%; height: 100%; object-fit: cover; object-position: center 32%; display: block;">
     </picture>
     <div style="position: absolute; inset: 0; background: linear-gradient(to top, oklch(20% 0.03 40 / 0.75), oklch(20% 0.03 40 / 0.05) 55%); z-index: 1;"></div>
     <div style="position: absolute; inset: 0; background: linear-gradient(to right, oklch(20% 0.03 40 / 0.55), oklch(20% 0.03 40 / 0) 55%); z-index: 1;"></div>
@@ -92,22 +101,22 @@
     <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(28px, 3.5vw, 40px); margin: 0 0 40px;">Образы из портфолио</h2>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 280px); gap: 16px;">
       <div style="grid-column: 1 / 3; grid-row: 1 / 3; overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-vintage-waves.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 25%;">
+        <img loading="lazy" decoding="async" src="assets/work-vintage-waves.webp" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 25%;">
       </div>
       <div style="overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-glam-eyes.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <img loading="lazy" decoding="async" src="assets/work-glam-eyes.webp" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div style="overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-red-lips.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        <img loading="lazy" decoding="async" src="assets/work-red-lips.webp" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block;">
       </div>
       <div style="height: 280px; overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-navy-vest.jpg" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 60% 8%; transform: scale(2.5) translateX(20px) translateY(-10px); transform-origin: 60% 4%;">
+        <img loading="lazy" decoding="async" src="assets/work-navy-vest.webp" alt="Портрет" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 60% 8%; transform: scale(2.5) translateX(20px) translateY(-10px); transform-origin: 60% 4%;">
       </div>
       <div style="height: 280px; overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-bridal-side.jpg" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
+        <img loading="lazy" decoding="async" src="assets/work-bridal-side.webp" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
       </div>
       <div style="height: 280px; overflow: hidden; border-radius: 2px;">
-        <img src="assets/work-bridal-lounge.jpg" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
+        <img loading="lazy" decoding="async" src="assets/work-bridal-lounge.webp" alt="Свадебный образ" style="width: 100%; height: 100%; object-fit: cover; display: block; object-position: 50% 20%;">
       </div>
     </div>
   </section>
@@ -127,8 +136,8 @@
       </div>
       <div style="overflow: hidden; height: 100%;" data-about-photo="1">
         <picture>
-          <source media="(max-width: 759px)" srcset="assets/about-portrait-mobile.jpg">
-          <img src="assets/about-portrait.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% top; display: block;">
+          <source media="(max-width: 759px)" srcset="assets/about-portrait-mobile.webp">
+          <img loading="lazy" decoding="async" src="assets/about-portrait.webp" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% top; display: block;">
         </picture>
       </div>
     </div>
@@ -171,7 +180,7 @@
   <section id="course" style="padding: clamp(32px, 5vw, 56px) 0; border-top: 1px solid oklch(85% 0.02 70);">
     <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 5vw, 64px); align-items: center;">
       <div style="aspect-ratio: 4/5; overflow: hidden; border-radius: 2px;">
-        <img src="assets/course-mirror.jpg" alt="Курс «Сам себе визажист»" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1);">
+        <img loading="lazy" decoding="async" src="assets/course-mirror.webp" alt="Курс «Сам себе визажист»" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1);">
       </div>
       <div>
         <p style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(58% 0.04 350); margin: 0 0 16px;">Курс</p>
@@ -232,7 +241,7 @@
         <p style="position: absolute; left: calc(max(0px, (100vw - 1200px) / 2) + clamp(20px, 5vw, 40px)); bottom: 20px; font-size: 13px; color: oklch(55% 0.03 40); margin: 0;" data-contact-copyright="1">© 2026 Albina Khisamova</p>
       </div>
       <div style="position: relative; overflow: hidden;" data-contact-photo="1">
-        <img src="assets/contact-portrait.jpg" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block;">
+        <img loading="lazy" decoding="async" src="assets/contact-portrait.webp" alt="Альбина за работой" style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; display: block;">
         <span style="position: absolute; bottom: 20px; right: 20px; font-size: 13px; color: oklch(55% 0.03 40);">Казань</span>
       </div>
     </div>
@@ -335,6 +344,10 @@
       <h2 style="font-family: 'Bodoni Moda', serif; font-weight: 500; font-size: clamp(22px, 2.6vw, 28px); margin: 0 0 14px;">Оставьте заявку</h2>
 
       <form id="bookingForm" novalidate>
+        <div aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+          <label for="bk-website">Сайт</label>
+          <input type="text" id="bk-website" name="website" tabindex="-1" autocomplete="off" value="">
+        </div>
         <div class="booking-row">
           <div class="booking-field">
             <label for="bk-name">Имя *</label>
@@ -407,7 +420,7 @@
     <p style="font-size: 16px; line-height: 1.6; color: oklch(42% 0.04 40); margin: 0 0 28px;">А пока загляните в&nbsp;мои соцсети — там свежие образы, бэкстейджи со&nbsp;съёмок и&nbsp;разборы техник, которых нет на&nbsp;сайте.</p>
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px;" data-modal-social="1">
       <a href="https://max.ru/u/f9LHodD0cOKSYK0b3uaggozZB6xT3aI5A3iyXANftKRmRTEbGYjHiNyNdVk" target="_blank" aria-label="MAX" style="display: inline-flex; align-items: center; justify-content: center; width: 128px; height: 27px; border-radius: 2px; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40);">
-        <img src="assets/max-icon.png" alt="" width="22" height="22" style="display: block;">
+        <img src="assets/max-icon.webp" alt="" width="22" height="22" style="display: block;">
       </a>
       <a href="https://www.instagram.com/khisamova_albina/" target="_blank" aria-label="Instagram" style="display: inline-flex; align-items: center; justify-content: center; width: 128px; height: 27px; border-radius: 2px; background: oklch(96.5% 0.012 75); color: oklch(30% 0.045 40);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6.5l1.1-1.7a1 1 0 0 1 .84-.46h2.12a1 1 0 0 1 .84.46L15 6.5"></path><rect x="3" y="6.5" width="18" height="13" rx="2.5"></rect><circle cx="12" cy="13" r="3.8"></circle><circle cx="17.5" cy="9.3" r="0.6" fill="currentColor" stroke="none"></circle></svg>
@@ -440,7 +453,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-left: auto; flex-shrink: 0;"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
       </a>
       <a href="https://max.ru/u/f9LHodD0cOKSYK0b3uaggozZB6xT3aI5A3iyXANftKRmRTEbGYjHiNyNdVk" target="_blank" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 2px; background: oklch(87% 0.025 65); color: oklch(30% 0.045 40); font-size: 15px; font-weight: 600;">
-        <img src="assets/max-icon.png" alt="" width="20" height="20" style="flex-shrink: 0; display: block;">
+        <img src="assets/max-icon.webp" alt="" width="20" height="20" style="flex-shrink: 0; display: block;">
         MAX
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="margin-left: auto; flex-shrink: 0;"><line x1="5" y1="19" x2="19" y2="5"></line><polyline points="8 5 19 5 19 16"></polyline></svg>
       </a>
@@ -457,6 +470,7 @@
   var warning = document.getElementById('bookingConsentWarning');
   var errorMsg = document.getElementById('bookingErrorMsg');
   var submitBtn = document.getElementById('bookingSubmitBtn');
+  var pageLoadedAt = Date.now();
 
   function openModal(e) {
     if (e) e.preventDefault();
@@ -593,7 +607,9 @@
       comment: form.comment.value,
       consent_pdn: form.consent_pdn.checked,
       consent_service: form.consent_service.checked,
-      consent_ads: form.consent_ads.checked
+      consent_ads: form.consent_ads.checked,
+      website: form.website.value,
+      elapsed_ms: Date.now() - pageLoadedAt
     };
 
     fetch('/api/submit-lead', {

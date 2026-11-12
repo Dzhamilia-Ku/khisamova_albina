@@ -76,7 +76,20 @@ export default async function handler(req, res) {
   const {
     name, phone, email, service, comment,
     consent_pdn, consent_service, consent_ads,
+    website, elapsed_ms,
   } = req.body || {};
+
+  // Anti-spam: honeypot field filled, or form submitted too fast / bypassing the page.
+  // Reply 200 so bots think they succeeded and don't adapt; nothing is stored or sent.
+  const MIN_FILL_MS = 3000;
+  if (website || typeof elapsed_ms !== 'number' || elapsed_ms < MIN_FILL_MS) {
+    console.warn('submit-lead: dropped as spam', {
+      honeypot: !!website,
+      elapsed_ms: typeof elapsed_ms === 'number' ? elapsed_ms : null,
+    });
+    res.status(200).json({ ok: true });
+    return;
+  }
 
   if (!name || !phone || !email) {
     res.status(400).json({ error: 'Missing required fields' });
